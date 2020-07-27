@@ -21,7 +21,7 @@ class R2R():
 
     def power_up(self):
         print("powering on")
-        time.sleep(1)
+        time.sleep(0.2)
         self.power.on()
         time.sleep(1)
         self.rewind()
@@ -97,6 +97,7 @@ class R2R():
 #
 
 r2r = R2R()
-r2r.wait_pushbutton_on()
-r2r.play_rewind_loop()
-print("ended")
+while True:
+    r2r.wait_pushbutton_on()
+    r2r.play_rewind_loop()
+    print("ended")
