@@ -6,6 +6,7 @@ class R2R():
     def __init__(self): 
         #  0, 1, 2, 3, 4, 5, 12, 13, 14, 15, 16,
         print("init")
+        self.hasButton = false
         self.trigger = 0.1
         self.st = Pin(0, Pin.OUT, value=1)
         self.pl = Pin(4, Pin.OUT, value=1)
@@ -67,10 +68,11 @@ class R2R():
         threshold = 1020
         while self.light_sensor.read() < threshold:
             time.sleep(0.2)
-            if self.pushbutton.value() == 0:
-                print("push button interrupt")
-                self.power_down()
-                return False
+            if self.hasButton:
+                if self.pushbutton.value() == 0:
+                    print("push button interrupt")
+                    self.power_down()
+                    return False
         return True
 
     def wait_pushbutton_on(self):
@@ -84,12 +86,12 @@ class R2R():
         play = True
         while play:
             self.play()
-            time.sleep(2) # move past the clear tape
+            time.sleep(3) # move past the clear tape
             play = self.wait_light_sensor()
             if not play:
                 break
             self.rewind()
-            time.sleep(2) # move past the clear tape
+            time.sleep(3) # move past the clear tape
             play = self.wait_light_sensor()
             if not play:
                 break
@@ -98,6 +100,10 @@ class R2R():
 
 r2r = R2R()
 while True:
-    r2r.wait_pushbutton_on()
+    if r2r.hasButton:
+        r2r.wait_pushbutton_on()
+    else:
+        r2r.power_up()
+        time.sleep(5)
     r2r.play_rewind_loop()
     print("ended")
