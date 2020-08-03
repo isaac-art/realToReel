@@ -6,7 +6,7 @@ class R2R():
     def __init__(self): 
         #  0, 1, 2, 3, 4, 5, 12, 13, 14, 15, 16,
         print("init")
-        self.hasButton = false
+        self.hasButton = False
         self.trigger = 0.1
         self.st = Pin(0, Pin.OUT, value=1)
         self.pl = Pin(4, Pin.OUT, value=1)
