@@ -23,9 +23,10 @@ class R2R():
     def power_up(self):
         print("powering on")
         time.sleep(2)
-        self.power.on()
-        time.sleep(1)
+        # self.power.on()
+        # time.sleep(1)
         self.rewind()
+        time.sleep(0.2)
         self.wait_light_sensor()
 
     def power_down(self):
@@ -86,12 +87,12 @@ class R2R():
         play = True
         while play:
             self.play()
-            time.sleep(3) # move past the clear tape
+            time.sleep(5) # move past the clear tape
             play = self.wait_light_sensor()
             if not play:
                 break
             self.rewind()
-            time.sleep(3) # move past the clear tape
+            time.sleep(5) # move past the clear tape
             play = self.wait_light_sensor()
             if not play:
                 break
